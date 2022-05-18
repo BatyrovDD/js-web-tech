@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Ж/д Депо</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" href="style.css" />
+<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="js/jquery.cycle.all.min.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
+</head>
+
+ <header align="center" class="head">
+	    <img class="al" height="100" width="100" src="http://s1.iconbird.com/ico/2014/1/618/w512h5121390853636raiwaystation512.png">
+    	<a class="ac" href="#">Ж/д Депо</a>
+	    <a class="ar"  style="text-decoration: none;  color: black; border: 2px solid black; padding: 20px 20px 20px 20px; font-size: 1.5em;" href="index2.html">Написать отзыв</a>
+	</header>
+  <body>
+<div id="wrapper">
+  <h2  align="center">Учёт поездов</h2>
+  <br />
+  <div id="content">
+    <div class="recent">
+    </div>
+	<div align="center"><input class="btn" type="button" id="getUser" value="Показать еще"/></div>
+  </div>
+</div>
+</body>
+</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $('#getUser').on('click',function(){
+		var tek = $('.post').length+1;
+		var kol = 5;
+        $.ajax({
+            type:'POST',
+            url:'getData.php',
+            dataType: "json",
+            data:{tek:tek, kol:kol},
+            success:function(data){
+			    for (var i=0;i<5;i++){
+				$('.recent').append('<div class="post"> <a href="#"><img src="'+data[i].imagesource+
+						'" width="100" height="100" alt="" /></a><h2><a href="#">'+data[i].headline+
+						'</a></h2><p style="font-size: 1.5em; margin: 20px;">'+data[i].maintext+
+						'</p><p class="readmore"> <a href="#">Посмотреть данные</a> </p><div class="break"></div></div><hr>');
+			    }
+            }
+        });
+    });
+	$('#getUser').click();
+});
+</script>
